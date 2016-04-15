@@ -1,0 +1,65 @@
+<!--based on: http://bl.ocks.org/bentrm/562ad975d599badf2822 / https://gist.github.com/bentrm/562ad975d599badf2822 -->
+<!-- as well as: Learning d3.js mapping - Chapter 5 Example 2 and d3 cookbook - Chapter 12 Example Choropleth map -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Choropleth Map</title>
+<link rel="stylesheet" 
+          href="css/style_charts.css" 
+          type="text/css">
+<style>
+
+.q0-9 { fill:rgb(247,251,255); }
+.q1-9 { fill:rgb(222,235,247); }
+.q2-9 { fill:rgb(198,219,239); }
+.q3-9 { fill:rgb(158,202,225); }
+.q4-9 { fill:rgb(107,174,214); }
+.q5-9 { fill:rgb(66,146,198); }
+.q6-9 { fill:rgb(33,113,181); }
+.q7-9 { fill:rgb(8,81,156); }
+.q8-9 { fill:rgb(8,48,107); }
+
+</style>
+<script src="js/d3.min.js" charset="utf-8"></script>
+<script src="js/d3.js" charset="utf-8"></script>
+<script src="js/d3.tip.v0.6.3.js" charset="utf-8"></script>
+<script src="js/topojson.v1.min.js"" charset="utf-8"></script>
+<script src="js/choropleth_map.js"></script>
+<script src="js/dashboard.js"></script>
+</head>
+<body>
+	<div id="diagram"></div>
+	<div id='dashboard'></div>
+	<!--<div id="tooltip"></div>-->
+	
+	<!--script to introduce necessary variables to pass to function drawSortableBarChart:-->
+	<script>
+		var		div = "#diagram",
+				filenames = ["data/DEU_adm1_stats.json","data/DEU_adm1_stats.csv",'data/cm_germany_education_data.csv'],
+				attributes_topojson = ["states","id"],
+				attribute_choropleth = ["ID_1","ST_p_HS"],
+				attributes_tooltip = ["name","count_hs","stud_total","stud_per_hs"],
+				domain = [5120, 6345, 7570, 8800],
+				range = ["#0a6e01", "#40ff05", "#E4FF05", "#FFDB00", "#ff6700"]; //check domain, add 6th class? , "#ff0000"
+	</script>
+	
+	<!--script to load asynchronous JavaScript, otherwise DOM is not ready when the script is loaded-->
+    <script language="javascript" type="text/javascript">
+      function loadScriptAfter() {
+        /*var script = document.getElementById("diagram");
+        script.src = "GeoViz_local/js/stacked_vertical_bar.js";
+        document.body.appendChild(script);*/
+		drawChoroplethMap(div,filenames,attributes_topojson,attribute_choropleth,attributes_tooltip,domain,range);
+		drawDashboard("#dashboard", "data/db_germany_education_data.csv", ["Bundesland","Stud_uni","Stud_fh","Stud_ph","Stud_vfh"],["#98abc5","#6b486b", "#ff8c00"]);
+      }
+
+      if (window.addEventListener) {
+        window.addEventListener("load", loadScriptAfter);
+      } else if (window.attachEvent) {
+        window.attachEvent("onload", loadScriptAfter);
+      } else {
+        window.onload = loadScriptAfter;
+      }
+    </script>
+</body>

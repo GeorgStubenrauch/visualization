@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Petrograph Charts</title>
+<link rel="stylesheet" 
+          href="../css/style_charts.css" 
+          type="text/css">
+<script src="../lib/jquery-1.11.2.min.js"></script>
+<script src="../lib/d3.min.js" charset="utf-8"></script>
+<script src="../lib/d3.js" charset="utf-8"></script>
+<script src="../lib/d3.tip.v0.6.3.js"></script>
+<script src="../lib/topojson.v1.min.js"" charset="utf-8"></script>
+<script src="../lib/base.js" charset="utf-8"></script>
+<script src="../lib/sparkline.js" charset="utf-8"></script>
+<script src="../js/choropleth_map.js"></script>
+<script src="../js/grouped_vertical_bar.js"></script>
+<script src="../js/stacked_vertical_bar.js"></script>
+<script src="../js/dual_scale_bar_chart.js"></script>
+<script src="../js/sortable_bar_chart.js"></script>
+<script src="../js/dashboard.js"></script>
+</head>
+<body>
+	<!--Define buttons and div for d3 chart-->
+	<button id="button_grouped" onClick="updateData(this.id)">Grouped (AVG)</button>
+	<button id="button_stacked" onClick="updateData(this.id)">Stacked (AVG)</button>
+	<button id="button_dual" onClick="updateData(this.id)">Dual Scale (RL / BL)</button>
+	<button id="button_sortable" onClick="updateData(this.id)">Sortable Bar</button>
+	<button id="button_dashboard" onClick="updateData(this.id)">Dashboard</button>
+	
+	<div id="grouped"></div>
+	<div id="stacked"></div>
+	<div id="dual_scale"></div>
+	<div id="sortable_bar"></div>
+	<div id="dashboard"></div>
+	<label id="label_checkbox"><input type="checkbox" id="checkbox">Sort values</label>
+	
+	<!--Define variable to control the type of the drawn chart-->
+	<script>
+	
+		//Array to realize changing of visualizations with buttons consisting of button-id as well as div-id:
+		var arrayChartsData = [['button_grouped','grouped'],['button_stacked','stacked'],['button_dual','dual_scale'],['button_sortable','sortable_bar'], ['button_dashboard','dashboard']];
+		
+		//Problem with these charts: number of measurements per Petrograph not the same, some at least 25,
+		//but other not...however still showing that e.g. Granit with the highest values!
+		
+		//Grouped:
+		var 	grouped_div = "#grouped",
+				grouped_filename = "../php/Geo_petrograph_statistics_total_php.csv",
+				grouped_attributes = ["PETROGRAPH","RL_AVG","BL_AVG","ODL_AVG"],	//first: attribute for x-Axis, the following attributes: attribute for y-Axis (bars)
+				grouped_attributes_tooltip = [["RL_AVG","average value in room air", "Bq m-3"], ["BL_AVG","average value in bottom air", "kBq m-3"], ["ODL_AVG","average value of ODL", "nSv h-1"]],
+				grouped_range = ["#98abc5","#6b486b", "#ff8c00"] //; //colors for bars
+				grouped_y_axis_annotation = "Average msrmnts. [Bq m-3, kBq m-3, nSv h-1]";
+		
+		//Stacked:
+		var 	stacked_div = "#stacked",
+				stacked_filename = "../php/Geo_petrograph_statistics_total_php.csv",
+				stacked_attributes = ["PETROGRAPH","RL_AVG","BL_AVG","ODL_AVG"],	//first: attribute for x-Axis, the following attributes: attribute for y-Axis (bars)
+				stacked_attributes_tooltip = [["RL_AVG","average value in room air", "Bq m-3"], ["BL_AVG","average value in bottom air", "kBq m-3"], ["ODL_AVG","average value of ODL", "nSv h-1"]],
+				stacked_range = ["#98abc5","#6b486b", "#ff8c00"] //; //colors for bars
+				stacked_y_axis_annotation = "Average msrmnts. [Bq m-3, kBq m-3, nSv h-1]";
+		
+		//Dual_Scale:
+		var 	dual_div = "#dual_scale",
+				dual_filename = "../php/Geo_petrograph_statistics_total_php.csv",
+				dual_attributes = ["PETROGRAPH", "RL_AVG", "ODL_AVG"] //;	//first: attribute for x-Axis, second: attribute for y-Axis (left bars), second: attribute for y-Axis (right bars,
+				dual_attributes_tooltip = [["average value in room air", "Bq m-3"], ["average value of ODL", "nSv h-1"]],
+				dual_domain = [350,150];
+				dual_y_axis_annotation = ["Average Radon msrmnt. in room air [Bq m-3]", "Average ODL msrmnt. [nSv m-1]"];
+		
+		//Sortable:
+		var sortable_div = "#sortable_bar",
+			sortable_filename = "../php/Geo_petrograph_statistics_total_php.csv",
+			sortable_attributes = ["PETROGRAPH", "RL_AVG"],
+			sortable_attributes_tooltip = ["average value in room air", "Bq m-3"],
+			sortable_y_axis_annotation = "Average Radon msrmnt. in room air [Bq m-3]";
+			
+		//Dashboard:
+		var dashboard_div = "#dashboard",
+			dashboard_filename = "../php/Geo_petrograph_statistics_total_php.csv",
+			dashboard_attributes = ["GEO", "RL_AVG_KE", "RL_AVG_EG", "RL_AVG_1G"],
+			dashboard_colors = ["#98abc5","#6b486b", "#ff8c00"];
+	</script>
+	
+	<!--script to load asynchronous JavaScript, otherwise DOM is not ready when the script is loaded-->
+    <script language="javascript" type="text/javascript">
+      function loadScriptAfter() {
+       
+		drawGroupedVerticalBar(grouped_div,grouped_filename,grouped_attributes,grouped_attributes_tooltip,grouped_range,grouped_y_axis_annotation);
+		drawStackedVerticalBar(stacked_div,stacked_filename,stacked_attributes,stacked_attributes_tooltip,stacked_range,stacked_y_axis_annotation);
+		drawDualScaleBarChart(dual_div,dual_filename,dual_attributes,dual_attributes_tooltip,dual_domain,dual_y_axis_annotation);
+		drawSortableBarChart(sortable_div,sortable_filename,sortable_attributes,sortable_attributes_tooltip,sortable_y_axis_annotation);
+		drawDashboard(dashboard_div, dashboard_filename, dashboard_attributes, dashboard_colors);
+		
+		//button settings when loading the page:
+		document.getElementById('button_grouped').disabled = true; 
+		document.getElementById('button_stacked').disabled = false; 
+		document.getElementById('button_dual').disabled = false; 
+		document.getElementById('button_sortable').disabled = false;
+		document.getElementById('button_dashboard').disabled = false; 
+		document.getElementById('label_checkbox').style.visibility="hidden"; 
+		document.getElementById('checkbox').checked = false;
+		
+		$(document.getElementById('grouped')).show();
+		$(document.getElementById('stacked')).hide();
+		$(document.getElementById('dual_scale')).hide();
+		$(document.getElementById('sortable_bar')).hide();
+		$(document.getElementById('dashboard')).hide();
+      }
+
+      if (window.addEventListener) {
+        window.addEventListener("load", loadScriptAfter);
+      } else if (window.attachEvent) {
+        window.attachEvent("onload", loadScriptAfter);
+      } else {
+        window.onload = loadScriptAfter;
+      }
+    </script>
+	
+	<!--Interaction with the buttons-->
+	<script>
+	function updateData(clicked_buttonid) {
+		
+		//Disable clicked button and change drawType as well as enable other buttons:
+		for (i = 0; i<arrayChartsData.length; i++) {
+			singleChartArray = arrayChartsData[i];
+			console.log(singleChartArray[0]);
+			console.log(singleChartArray[1]);
+			if (clicked_buttonid == singleChartArray[0]) {
+				//Disable clicked button:
+				document.getElementById(clicked_buttonid).disabled = true; 	
+				$(document.getElementById(singleChartArray[1])).show();
+				if (clicked_buttonid == "button_sortable") {
+					document.getElementById('label_checkbox').style.visibility="visible"; 
+				}
+			} else {
+				//Enable other buttons:
+				document.getElementById(singleChartArray[0]).disabled = false;
+				$(document.getElementById(singleChartArray[1])).hide();
+				if (clicked_buttonid != "button_sortable") {
+					document.getElementById('label_checkbox').style.visibility="hidden"; 
+				}
+			}			
+		}	
+    };	
+	</script>
+</body>
