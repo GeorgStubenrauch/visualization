@@ -58,6 +58,21 @@ function drawChoroplethMap(div,filenames,attributes_topojson,attribute_choroplet
 			
   var path = d3.geo.path().projection(projection);
   
+  function click() {
+	  alert("Click!");
+  }
+	//Modal:
+				$('#myModal').on('show.bs.modal', function () {
+					$(this).find('.modal-content').css({
+						width:'auto', //probably not needed
+						height:'auto', //probably not needed 
+						'max-height':'100%'
+					});
+				});
+
+	//Datasets for modal window:
+	var array_datasets = ["data/single_states/bawu_stats.csv","data/single_states/bayern_stats.csv","data/single_states/berlin_stats.csv","data/single_states/brandenburg_stats.csv","data/single_states/bremen_stats.csv","data/single_states/hamburg_stats.csv","data/single_states/hessen_stats.csv","data/single_states/meckvor_stats.csv","data/single_states/niedersachsen_stats.csv","data/single_states/nrw_stats.csv","data/single_states/rlp_stats.csv","data/single_states/saarland_stats.csv","data/single_states/sachsen_anhalt_stats.csv","data/single_states/sachsen_stats.csv","data/single_states/schleswig_holstein_stats.csv","data/single_states/thueringen_stats.csv"]
+				
   //Tooltip:
    var tip = d3.tip()
 	.attr('class', 'd3-tip')
@@ -128,7 +143,65 @@ function drawChoroplethMap(div,filenames,attributes_topojson,attribute_choroplet
 			.append('path')
 			.attr('d', path)	//;
 			.on('mouseover', tip.show)			// event for tooltip
-			.on('mouseout', tip.hide);			// event for tooltip 
+			.on('mouseout', tip.hide)
+			.on('click', function(d){ 
+				console.log(d.properties[attributes_tooltip[0]]);
+				var selected_dataset = array_datasets[d.properties["id"]-753];
+				document.getElementById("modal_header").innerHTML = d.properties[attributes_tooltip[0]];
+				
+				//Clear div:
+				$('#grouped').empty();
+				$('#stacked').empty();
+				$('#sortable_bar').empty();
+				$('#dashboard').empty();
+				
+				//Grouped:
+				var grouped_div = "#grouped",
+				//grouped_filename = "data/single_states/bawu_stats.csv",
+				grouped_filename = selected_dataset,
+				grouped_attributes = ["Semester","Stud_uni","Stud_fh","Stud_ph","Stud_vfh"],	//first: attribute for x-Axis, the following attributes: attribute for y-Axis (bars)
+				grouped_attributes_tooltip = [["Stud_uni","number of students at a university", ""], ["Stud_fh","number of students at a university of applied sciences", ""], ["Stud_ph","number of students at a university of education", ""], ["Stud_vfh","number of students at a university of administration", ""]],
+				grouped_range = ["#98abc5","#6b486b", "#ff8c00"] //; //colors for bars
+				grouped_y_axis_annotation = "Number of students";
+				
+				//Stacked:
+				var stacked_div = "#stacked",
+				//stacked_filename = "data/single_states/bawu_stats.csv",
+				stacked_filename = selected_dataset,
+				stacked_attributes = ["Semester","Stud_uni","Stud_fh","Stud_ph","Stud_vfh"],	//first: attribute for x-Axis, the following attributes: attribute for y-Axis (bars)
+				stacked_attributes_tooltip = [["Stud_uni","number of students at a university", ""], ["Stud_fh","number of students at a university of applied sciences", ""], ["Stud_ph","number of students at a university of education", ""], ["Stud_vfh","number of students at a university of administration", ""]],
+				stacked_range = ["#98abc5","#6b486b", "#ff8c00"] //; //colors for bars
+				stacked_y_axis_annotation = "Number of students";
+		
+				//Sortable:
+				var sortable_div = "#sortable_bar",
+				//sortable_filename = "data/single_states/bawu_stats.csv",
+				sortable_filename = selected_dataset,
+				sortable_attributes = ["Semester","Stud_total"],
+				sortable_attributes_tooltip = ["total number of students", ""],
+				sortable_y_axis_annotation = "Number of students";
+		
+				//draw charts:
+				drawDashboard("#dashboard", selected_dataset, ["Semester","Stud_uni","Stud_fh","Stud_ph","Stud_vfh"],["#98abc5","#6b486b", "#ff8c00"]);   
+				drawGroupedVerticalBar(grouped_div,grouped_filename,grouped_attributes,grouped_attributes_tooltip,grouped_range,grouped_y_axis_annotation);
+				drawStackedVerticalBar(stacked_div,stacked_filename,stacked_attributes,stacked_attributes_tooltip,stacked_range,stacked_y_axis_annotation);
+				drawSortableBarChart(sortable_div,sortable_filename,sortable_attributes,sortable_attributes_tooltip,sortable_y_axis_annotation);
+	
+				//button settings when loading the page:
+				document.getElementById('button_grouped').disabled = true; 
+				document.getElementById('button_stacked').disabled = false;
+				document.getElementById('button_sortable').disabled = false;
+				document.getElementById('button_dashboard').disabled = false;  
+				document.getElementById('label_checkbox').style.visibility="hidden";
+				document.getElementById('checkbox').checked = false;
+	
+				$(document.getElementById('grouped')).show();
+				$(document.getElementById('stacked')).hide();
+				$(document.getElementById('sortable_bar')).hide();
+				$(document.getElementById('dashboard')).hide();
+				
+				$('#myModal').modal('show');
+			});			// event for tooltip 
 
 		choropleth_var.attr("fill", function (d) {
 						var col = color(rateByValue[d.properties[attributes_topojson[1]]]);
@@ -175,3 +248,36 @@ function drawChoroplethMap(div,filenames,attributes_topojson,attribute_choroplet
 	
   });
 }
+
+function updateData(clicked_buttonid) {
+	
+	var arrayChartsData = [['button_grouped','grouped'],['button_stacked','stacked'],['button_sortable','sortable_bar'],['button_dashboard', 'dashboard']];
+		
+	//Disable clicked button and change drawType as well as enable other buttons:
+	for (i = 0; i<arrayChartsData.length; i++) {
+		singleChartArray = arrayChartsData[i];
+		console.log(singleChartArray[0]);
+		console.log(singleChartArray[1]);
+		if (clicked_buttonid == singleChartArray[0]) {
+			//Disable clicked button:
+			document.getElementById(clicked_buttonid).disabled = true; 	
+			$(document.getElementById(singleChartArray[1])).show();
+			if (clicked_buttonid == "button_sortable") {
+				document.getElementById(singleChartArray[1]).style.display = true;
+			//	document.getElementById('lable_checkbox').style.display="inline"; 
+				document.getElementById('label_checkbox').style.visibility="visible";
+
+			}
+		} else {
+			//Enable other buttons:
+			document.getElementById(singleChartArray[0]).disabled = false;
+			//Disable display of div:
+		//	document.getElementById(singleChartArray[1]).style.display = false;
+			$(document.getElementById(singleChartArray[1])).hide();
+			if (clicked_buttonid != "button_sortable") {
+				document.getElementById('label_checkbox').style.visibility="hidden";
+			//	document.getElementById('lable_checkbox').style.display="none";  
+			}
+		}			
+	}	
+};

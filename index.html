@@ -20,18 +20,96 @@
 .q7-9 { fill:rgb(8,81,156); }
 .q8-9 { fill:rgb(8,48,107); }
 
+#outer {
+  width: 100%;
+  text-align: center;
+}
+
+#diagram {
+  display: inline-block;
+}
 </style>
+<!-- jQuery -->
+<script src="js/jquery-1.11.2.min.js"></script>
+
+<!-- bootstrap -->
+<link rel="stylesheet" 
+	href="css/bootstrap.min.css" 
+    type="text/css">
+<script src="js/bootstrap.min.js"></script>
 <script src="js/d3.min.js" charset="utf-8"></script>
 <script src="js/d3.js" charset="utf-8"></script>
 <script src="js/d3.tip.v0.6.3.js" charset="utf-8"></script>
 <script src="js/topojson.v1.min.js"" charset="utf-8"></script>
 <script src="js/choropleth_map.js"></script>
 <script src="js/dashboard.js"></script>
+<script src="js/grouped_vertical_bar.js"></script>
+<script src="js/stacked_vertical_bar.js"></script>
+<script src="js/dual_scale_bar_chart.js"></script>
+<script src="js/sortable_bar_chart.js"></script>
 </head>
 <body>
-	<div id="diagram"></div>
-	<div id='dashboard'></div>
+	<div id="header"><img src="images/headline.png" border="0" width="1500" /></div>
+	<!--<div id="header"><img src="image/headline.png"
+                       alt="zoom in"
+                       width="30" 
+                       height="30" 
+                       border="0" /></div>-->
+					   
+	<div id="outer">
+		<div id="diagram"></div>
+	</div>
+	<div id='dashboard_bottom'></div>
 	<!--<div id="tooltip"></div>-->
+	
+	<!-- Modal -->
+	<div id="myModal" class="modal fade" class="modal-dialog modal-lg" role="dialog" tabindex="-1" aria-labelledby="myLargeModalLabel">
+		<div class="modal-dialog modal-lg"">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<!--<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Modal Header</h4>
+				</div>
+				<div class="modal-body">
+					<p>Some text in the modal.</p>
+				</div>
+				
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>-->
+				
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 id="modal_header" class="modal-title"></h4>
+				</div>
+				<div class="modal-body">
+					<!--Define buttons and div for d3 chart-->
+					<div id="chart_controls">
+					<div id="links">
+						<button class="btn btn-default" id="button_grouped" onClick="updateData(this.id)">Grouped Bar Chart</button>
+						<button class="btn btn-default" id="button_stacked" onClick="updateData(this.id)">Stacked Bar Chart</button>
+						<button class="btn btn-default" id="button_sortable" onClick="updateData(this.id)">Sortable Bar Chart</button>
+						<button class="btn btn-default" id="button_dashboard" onClick="updateData(this.id)">Dashboard</button>
+						<label id="label_checkbox"><input type="checkbox" id="checkbox">Sort values</label>
+					</div>
+					<!--<div id="rechts">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>-->
+					</div>
+					
+					<!--<div id="chart"></div>-->
+					<div id="grouped"></div>
+					<div id="stacked"></div>
+					<div id="sortable_bar"></div>
+					<div id='dashboard'></div>
+					
+					</div>
+			</div>
+
+		</div>
+	</div>
 	
 	<!--script to introduce necessary variables to pass to function drawSortableBarChart:-->
 	<script>
@@ -51,7 +129,7 @@
         script.src = "GeoViz_local/js/stacked_vertical_bar.js";
         document.body.appendChild(script);*/
 		drawChoroplethMap(div,filenames,attributes_topojson,attribute_choropleth,attributes_tooltip,domain,range);
-		drawDashboard("#dashboard", "data/db_germany_education_data.csv", ["Bundesland","Stud_uni","Stud_fh","Stud_ph","Stud_vfh"],["#98abc5","#6b486b", "#ff8c00"]);
+		drawDashboard("#dashboard_bottom", "data/db_germany_education_data.csv", ["Bundesland","Stud_uni","Stud_fh","Stud_ph","Stud_vfh"],["#98abc5","#6b486b", "#ff8c00"]);
       }
 
       if (window.addEventListener) {
