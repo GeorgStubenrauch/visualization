@@ -40,8 +40,8 @@ e.g. ["#0a6e01", "#40ff05", "#E4FF05", "#FFDB00", "#ff6700", "#ff0000"]
 **/
 function drawChoroplethMap(div,filenames,attributes_topojson,attribute_choropleth,attributes_tooltip,domain,range) {
   var tooltip_length = attributes_tooltip.length;
-  var height = 1024;
-  var width = 768;
+  var height = 900;
+  var width = 800;
   var projection = d3.geo.mercator();
   var choropleth_var = void 0;
   var db = d3.map();
@@ -81,32 +81,33 @@ function drawChoroplethMap(div,filenames,attributes_topojson,attribute_choroplet
 		var tooltip = "";
 		console.log(d.properties["id"]);//attributes_tooltip[0]
 		if (d.properties[attributes_tooltip[0]] != undefined) {
-			tooltip += attributes_tooltip[0] + ": " + d.properties[attributes_tooltip[0]]; 
+			tooltip += "Name of state: " + d.properties[attributes_tooltip[0]]; 
 		}
         if (d.properties[attributes_tooltip[1]] != undefined) {
-			tooltip += "<br>" + attributes_tooltip[1] + ": " + d.properties[attributes_tooltip[1]];
+			tooltip += "<br>" + "Total number of institutions: " + d.properties[attributes_tooltip[1]];
 		}
 		if (d.properties[attributes_tooltip[2]] != undefined) {
-			tooltip += "<br>" + attributes_tooltip[2] + ": " + d.properties[attributes_tooltip[2]];
+			tooltip += "<br>" + "Total number of students: " + d.properties[attributes_tooltip[2]];
 		}
 		if (d.properties[attributes_tooltip[3]] != undefined) {
-			tooltip += "<br>" + attributes_tooltip[3] + ": " + d.properties[attributes_tooltip[3]];
+			tooltip += "<br>" + "Avergage number of students per institution: " + d.properties[attributes_tooltip[3]];
 		}
 		if (d.properties[attributes_tooltip[4]] != undefined) {
-			tooltip += "<br>" + attributes_tooltip[4] + ": " + d.properties[attributes_tooltip[4]];
+			tooltip += "<br>" + "Click here for more information!" ;
 		}
 		if (d.properties[attributes_tooltip[5]] != undefined) {
 			tooltip += "<br>" + attributes_tooltip[5] + ": " + d.properties[attributes_tooltip[5]];
 		}
+		tooltip += "<br>" + "Click here for more information!" ;
 		return tooltip;
   });
 
   var svg = d3.select(div)
       .append("svg")
       .attr("width", width)
-      .attr("height", height)
-	  .call(d3.behavior.zoom()
-	  .on("zoom", redraw));
+      .attr("height", height);
+	  //.call(d3.behavior.zoom()
+	  //.on("zoom", redraw));
 	  
   function redraw() {
     svg.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
@@ -161,7 +162,7 @@ function drawChoroplethMap(div,filenames,attributes_topojson,attribute_choroplet
 				grouped_filename = selected_dataset,
 				grouped_attributes = ["Semester","Stud_uni","Stud_fh","Stud_ph","Stud_vfh"],	//first: attribute for x-Axis, the following attributes: attribute for y-Axis (bars)
 				grouped_attributes_tooltip = [["Stud_uni","number of students at a university", ""], ["Stud_fh","number of students at a university of applied sciences", ""], ["Stud_ph","number of students at a university of education", ""], ["Stud_vfh","number of students at a university of administration", ""]],
-				grouped_range = ["#98abc5","#6b486b", "#ff8c00"] //; //colors for bars
+				grouped_range = ["#006d2c","#2ca25f", "#66c2a4", "#b2e2e2"], //; //colors for bars
 				grouped_y_axis_annotation = "Number of students";
 				
 				//Stacked:
@@ -170,7 +171,7 @@ function drawChoroplethMap(div,filenames,attributes_topojson,attribute_choroplet
 				stacked_filename = selected_dataset,
 				stacked_attributes = ["Semester","Stud_uni","Stud_fh","Stud_ph","Stud_vfh"],	//first: attribute for x-Axis, the following attributes: attribute for y-Axis (bars)
 				stacked_attributes_tooltip = [["Stud_uni","number of students at a university", ""], ["Stud_fh","number of students at a university of applied sciences", ""], ["Stud_ph","number of students at a university of education", ""], ["Stud_vfh","number of students at a university of administration", ""]],
-				stacked_range = ["#98abc5","#6b486b", "#ff8c00"] //; //colors for bars
+				stacked_range = ["#006d2c","#2ca25f", "#66c2a4", "#b2e2e2"]; //; //colors for bars
 				stacked_y_axis_annotation = "Number of students";
 		
 				//Sortable:
@@ -182,7 +183,7 @@ function drawChoroplethMap(div,filenames,attributes_topojson,attribute_choroplet
 				sortable_y_axis_annotation = "Number of students";
 		
 				//draw charts:
-				drawDashboard("#dashboard", selected_dataset, ["Semester","Stud_uni","Stud_fh","Stud_ph","Stud_vfh"],["#98abc5","#6b486b", "#ff8c00"]);   
+				drawDashboard_modal("#dashboard", selected_dataset, ["Semester","Stud_uni","Stud_fh","Stud_ph","Stud_vfh"],["#006d2c","#2ca25f", "#66c2a4", "#b2e2e2"]);   
 				drawGroupedVerticalBar(grouped_div,grouped_filename,grouped_attributes,grouped_attributes_tooltip,grouped_range,grouped_y_axis_annotation);
 				drawStackedVerticalBar(stacked_div,stacked_filename,stacked_attributes,stacked_attributes_tooltip,stacked_range,stacked_y_axis_annotation);
 				drawSortableBarChart(sortable_div,sortable_filename,sortable_attributes,sortable_attributes_tooltip,sortable_y_axis_annotation);
@@ -220,10 +221,11 @@ function drawChoroplethMap(div,filenames,attributes_topojson,attribute_choroplet
 
 		legend
 			.append('rect')
-			.attr("x", width - 120)
+			.attr("x", width - 150)
 			.attr("y", function(d, i) {
-				return i * 20;
+				return (height - 350) + (i * 20);
 			})
+			//.attr("y", height - 500)
 			.attr("width", 10)
 			.attr("height", 10)
 			.style("stroke", "black")
@@ -232,9 +234,9 @@ function drawChoroplethMap(div,filenames,attributes_topojson,attribute_choroplet
 
 		legend
 			.append('text')
-			.attr("x", width - 105) //leave space of about 5 pixel after the rectangles
+			.attr("x", width - 130) //leave space of about 5 pixel after the rectangles
 			.attr("y", function(d, i) {
-				return i * 20;
+				return (height - 350) + (i * 20);
 			})
 			.attr("dy", "0.8em") //place text one line "below" the x,y point
 			.text(function(d,i) {

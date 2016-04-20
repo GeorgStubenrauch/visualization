@@ -8,25 +8,43 @@
 <link rel="stylesheet" 
           href="css/style_charts.css" 
           type="text/css">
+<link rel="stylesheet" 
+          href="css/style.css" 
+          type="text/css">
 <style>
-
-.q0-9 { fill:rgb(247,251,255); }
-.q1-9 { fill:rgb(222,235,247); }
-.q2-9 { fill:rgb(198,219,239); }
-.q3-9 { fill:rgb(158,202,225); }
-.q4-9 { fill:rgb(107,174,214); }
-.q5-9 { fill:rgb(66,146,198); }
-.q6-9 { fill:rgb(33,113,181); }
-.q7-9 { fill:rgb(8,81,156); }
-.q8-9 { fill:rgb(8,48,107); }
 
 #outer {
   width: 100%;
-  text-align: center;
+  
+  margin-left: 75px;
 }
 
 #diagram {
+  margin-top: 10px;
   display: inline-block;
+
+}
+
+#symbols {
+	margin-top: 800px;	
+}
+
+#bottom {
+	margin-top: 475px;
+}
+
+#dashboard_bottom {
+	margin-top: 30px;
+}
+
+#student {
+	margin-left: 100px;
+	margin-top: -275px;
+}
+
+#symbols {
+	margin-left: -275px;
+	margin-top: -950px;	
 }
 </style>
 <!-- jQuery -->
@@ -43,23 +61,28 @@
 <script src="js/topojson.v1.min.js"" charset="utf-8"></script>
 <script src="js/choropleth_map.js"></script>
 <script src="js/dashboard.js"></script>
+<script src="js/dashboard_modal.js"></script>
 <script src="js/grouped_vertical_bar.js"></script>
 <script src="js/stacked_vertical_bar.js"></script>
 <script src="js/dual_scale_bar_chart.js"></script>
 <script src="js/sortable_bar_chart.js"></script>
 </head>
 <body>
-	<div id="header"><img src="images/headline.png" border="0" width="1500" /></div>
+	<div id="header"><img src="images/headline_green.png" border="0" width="1000" /></div>
 	<!--<div id="header"><img src="image/headline.png"
                        alt="zoom in"
                        width="30" 
                        height="30" 
                        border="0" /></div>-->
-					   
+				   
 	<div id="outer">
 		<div id="diagram"></div>
 	</div>
-	<div id='dashboard_bottom'></div>
+	<div id="symbols"><img src="images/cap-and-symbols_freigestellt.png" border="0" width="500" /></div>
+	<div id="bottom">
+		<div id='dashboard_bottom'></div>
+		<div id="student"><img src="images/Student_freigestellt.png" border="0" width="180" /></div>
+	</div>
 	<!--<div id="tooltip"></div>-->
 	
 	<!-- Modal -->
@@ -119,7 +142,7 @@
 				attribute_choropleth = ["ID_1","ST_p_HS"],
 				attributes_tooltip = ["name","count_hs","stud_total","stud_per_hs"],
 				domain = [5120, 6345, 7570, 8800],
-				range = ["#0a6e01", "#40ff05", "#E4FF05", "#FFDB00", "#ff6700"]; //check domain, add 6th class? , "#ff0000"
+				range = ["#edf8fb", "#b2e2e2", "#66c2a4", "#2ca25f", "#006d2c"]; //check domain, add 6th class? , "#ff0000"
 	</script>
 	
 	<!--script to load asynchronous JavaScript, otherwise DOM is not ready when the script is loaded-->
@@ -129,7 +152,7 @@
         script.src = "GeoViz_local/js/stacked_vertical_bar.js";
         document.body.appendChild(script);*/
 		drawChoroplethMap(div,filenames,attributes_topojson,attribute_choropleth,attributes_tooltip,domain,range);
-		drawDashboard("#dashboard_bottom", "data/db_germany_education_data.csv", ["Bundesland","Stud_uni","Stud_fh","Stud_ph","Stud_vfh"],["#98abc5","#6b486b", "#ff8c00"]);
+		drawDashboard("#dashboard_bottom", "data/db_germany_education_data.csv", ["Bundesland","Stud_uni","Stud_fh","Stud_ph","Stud_vfh"],["#006d2c","#2ca25f", "#66c2a4", "#b2e2e2"]);//["#98abc5","#6b486b", "#ff8c00", "#fa4226"]
       }
 
       if (window.addEventListener) {

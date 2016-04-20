@@ -35,7 +35,7 @@ function drawDashboard(in_div, in_filename, in_attributes, in_colors){
 	
 	//Function to draw a dashboard visualization:
 	function draw(div,draw_data,attributes) {
-		var barColor = 'steelblue';
+		var barColor = d3.rgb(0,109,44);
 
 		/*Function to determine the color of the different attributes:
 		an associate array is returned that stores the name of the attribute and the color as a hex code*/
@@ -58,9 +58,9 @@ function drawDashboard(in_div, in_filename, in_attributes, in_colors){
     
 		// function to handle the histogram part:
 		function histoGram(fD){
-			var hG={},    hGDim = {t: 30, r: 0, b: 300, l: 100};
-			hGDim.w = 855 - hGDim.l - hGDim.r, 
-			hGDim.h = 700 - hGDim.t - hGDim.b;
+			var hG={},    hGDim = {t: 30, r: 0, b: 150, l: 80};
+			hGDim.w = 1000 - hGDim.l - hGDim.r, 
+			hGDim.h = 300 - hGDim.t - hGDim.b;
             
 			//create a svg element for the histogram part:
 			var hGsvg = d3.select(div).append("svg")

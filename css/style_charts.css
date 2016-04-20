@@ -18,14 +18,11 @@ svg {
 }
 
 .bar {
-  fill: steelblue;
+  fill:rgb(0,149,44);
 }
 
-.bar1 {
-  fill: steelblue;
-}
-.bar2 {
-  fill: orange;
+.legendEntry {
+	margin-left: 800px;
 }
 
 .axis path,
@@ -88,10 +85,12 @@ rect:hover {  fill:blue; }
 
 
 .pie{
-    margin-bottom: 175px;
+	margin-left: 400px;
+	display:inline-block;
 }
 .legend{
-    margin-bottom: 300px;
+	margin-left: 30px;
+    margin-bottom: 95px;
     display:inline-block;
     border-collapse: collapse;
     border-spacing: 0px;
@@ -103,4 +102,27 @@ rect:hover {  fill:blue; }
 .legendFreq, .legendPerc{
     align:right;
     width:50px;
+}
+
+.pie_mw{
+	margin-left: 100px;
+	display:inline-block;
+}
+
+.legend_mw{
+	margin-left: 30px;
+    margin-bottom: 80px;
+    display:inline-block;
+    border-collapse: collapse;
+    border-spacing: 0px;
+	z-index: 1151 !important;
+}
+.legend_mw td{
+    padding:4px 5px;
+    vertical-align:bottom;
+}
+.legendFreq_mw, .legendPerc_mw{
+    align:right;
+    width:50px;
+	z-index: 1151 !important;
 }
