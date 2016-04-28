@@ -10,20 +10,6 @@ svg {
     border-color: #ccc;
     background: #fff;
 }
-
-/* Legend */
-.caption {
-  font-weight: bold;
-}
-
-.key path {
-  display: none;
-}
-
-.key line {
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
 	
 /* New class for the overlay zoom */
 .overlay {
@@ -53,7 +39,6 @@ svg {
 .y.axisRight text {
     fill: orange;
 }
-
 .y.axisLeft text {
     fill: steelblue;
 }
@@ -98,13 +83,13 @@ rect:hover {  fill:blue; }
 .legend tr{    border-bottom:1px solid grey; }
 .legend tr:first-child{    border-top:1px solid grey; }
 
+
 .pie{
-	margin-top: 10px;
-	margin-left: 650px;
+	margin-left: 400px;
 	display:inline-block;
 }
 .legend{
-	margin-left: -550px;
+	margin-left: 30px;
     margin-bottom: 95px;
     display:inline-block;
     border-collapse: collapse;

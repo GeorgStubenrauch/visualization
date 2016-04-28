@@ -1,4 +1,4 @@
-Semester,Bundesland,Hochschulen,Total,Uni,PH,FH,VFH,Stud_per_hs
+Semester,Bundesland,Hochschulen,Stud_total,Stud_uni,Stud_ph,Stud_fh,Stud_vfh,Stud_per_hs
 WS2014/15,Baden-Wuerttemberg,70,357290,178032,29335,144185,5738,5104
 WS2013/14,Baden-Wuerttemberg,69,347207,176210,29496,136541,4960,5032
 WS2012/13,Baden-Wuerttemberg,71,333408,170596,29245,128687,4880,4696

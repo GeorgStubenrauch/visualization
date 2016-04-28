@@ -1,0 +1,17 @@
+ID_0,ISO,NAME_0,ID_1,NAME_1,VARNAME_1,NL_NAME_1,HASC_1,CC_1,TYPE_1,ENGTYPE_1,VALIDFR_1,VALIDTO_1,REMARKS_1,Shape_Leng,Shape_Area,ST_p_HS,Count_HS,Stud_total
+60,DEU,Germany,753,Baden-Wuerttemberg,,,DE.BW,,Land,State,Unknown,Present,,16.89107275720,4.38319457370,5104,70,357290
+60,DEU,Germany,754,Bayern,Bavaria,,DE.BY,,Land,State,Unknown,Present,,28.31584588540,8.65610832966,7671,48,368218
+60,DEU,Germany,755,Berlin,,,DE.BE,,Land,State,Unknown,Present,,2.63121403459,0.11715301026,3893,44,171274
+60,DEU,Germany,756,Brandenburg,,,DE.BR,,Land,State,Unknown,Present,,18.99130532210,3.89607474071,4137,12,49642
+60,DEU,Germany,757,Bremen,,,DE.HB,,Land,State,Unknown,Present,,1.58841006979,0.04278696767,4376,8,35007
+60,DEU,Germany,758,Hamburg,,,DE.HH,,Land,State,Unknown,Present,,2.52202052620,0.10414212600,4860,20,97208
+60,DEU,Germany,759,Hessen,Hesse,,DE.HE,,Land,State,Unknown,Present,,15.51748910870,2.66452926866,7206,33,237813
+60,DEU,Germany,760,Mecklenburg-Vorpommern,Mecklenburg-West Pomerania,,DE.MV,,Land,State,Unknown,Present,,32.25502772210,3.15914061030,5543,7,38798
+60,DEU,Germany,761,Niedersachsen,Lower Saxony,,DE.NI,,Land,State,Unknown,Present,,30.55151762760,6.36020859693,6626,29,192143
+60,DEU,Germany,762,Nordrhein-Westfalen,North Rhine-Westphalia,,DE.NW,,Land,State,Unknown,Present,,18.85960470750,4.43419400017,10019,72,721347
+60,DEU,Germany,763,Rheinland-Pfalz,Rhineland-Palatinate,,DE.RP,,Land,State,Unknown,Present,,12.98387848740,2.48308071805,6448,19,122515
+60,DEU,Germany,764,Saarland,,,DE.SL,,Land,State,Unknown,Present,,3.88870972534,0.31715767591,4918,6,29506
+60,DEU,Germany,765,Sachsen,Saxony,,DE.SN,,Land,State,Unknown,Present,,14.95164325860,2.36105876761,4665,24,111970
+60,DEU,Germany,766,Sachsen-Anhalt,Saxony-Anhalt,,DE.ST,,Land,State,Unknown,Present,,13.95390475260,2.69692613426,5453,10,54533
+60,DEU,Germany,767,Schleswig-Holstein,,,DE.SH,,Land,State,Unknown,Present,,24.51923045710,2.15414081525,4700,12,56400
+60,DEU,Germany,768,Thueringen,Thuringia,,DE.TH,,Land,State,Unknown,Present,,14.52948588230,2.07735292652,4629,11,50915

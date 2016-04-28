@@ -1,4 +1,4 @@
-Semester,Bundesland,Hochschulen,Total,Uni,PH,FH,VFH,Stud_per_hs
+Semester,Bundesland,Hochschulen,Stud_total,Stud_uni,Stud_ph,Stud_fh,Stud_vfh,Stud_per_hs
 WS2014/15,Berlin,44,171274,113592,5387,51818,477,3893
 WS2013/14,Berlin,42,164728,109854,5164,49257,453,3922
 WS2012/13,Berlin,42,160145,107895,5115,46676,459,3813

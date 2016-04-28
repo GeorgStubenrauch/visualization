@@ -1,4 +1,4 @@
-Semester,Bundesland,Hochschulen,Total,Uni,PH,FH,VFH,Stud_per_hs
+Semester,Bundesland,Hochschulen,Stud_total,Stud_uni,Stud_ph,Stud_fh,Stud_vfh,Stud_per_hs
 WS2014/15,Sachsen,24,111970,79231,2874,28929,936,4665
 WS2013/14,Sachsen,25,111536,78010,2883,29684,959,4461
 WS2012/13,Sachsen,25,112191,78376,2861,29927,1027,4488

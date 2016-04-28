@@ -1,4 +1,4 @@
-Semester,Bundesland,Hochschulen,Total,Uni,PH,FH,VFH,Stud_per_hs
+Semester,Bundesland,Hochschulen,Stud_total,Stud_uni,Stud_ph,Stud_fh,Stud_vfh,Stud_per_hs
 WS2014/15,Bremen,8,35007,19876,898,13927,306,4376
 WS2013/14,Bremen,8,34594,19794,900,13564,336,4324
 WS2012/13,Bremen,8,34383,20089,900,13025,369,4298

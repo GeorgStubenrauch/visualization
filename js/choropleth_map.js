@@ -160,8 +160,8 @@ function drawChoroplethMap(div,filenames,attributes_topojson,attribute_choroplet
 				var grouped_div = "#grouped",
 				//grouped_filename = "data/single_states/bawu_stats.csv",
 				grouped_filename = selected_dataset,
-				grouped_attributes = ["Semester","Stud_uni","Stud_fh","Stud_ph","Stud_vfh"],	//first: attribute for x-Axis, the following attributes: attribute for y-Axis (bars)
-				grouped_attributes_tooltip = [["Stud_uni","number of students at a university", ""], ["Stud_fh","number of students at a university of applied sciences", ""], ["Stud_ph","number of students at a university of education", ""], ["Stud_vfh","number of students at a university of administration", ""]],
+				grouped_attributes = ["Semester","Uni","FH","PH","VFH"],	//first: attribute for x-Axis, the following attributes: attribute for y-Axis (bars)
+				grouped_attributes_tooltip = [["Uni","number of students at a university", ""], ["FH","number of students at a university of applied sciences", ""], ["PH","number of students at a university of education", ""], ["VFH","number of students at a university of administration", ""]],
 				grouped_range = ["#006d2c","#2ca25f", "#66c2a4", "#b2e2e2"], //; //colors for bars
 				grouped_y_axis_annotation = "Number of students";
 				
@@ -169,8 +169,8 @@ function drawChoroplethMap(div,filenames,attributes_topojson,attribute_choroplet
 				var stacked_div = "#stacked",
 				//stacked_filename = "data/single_states/bawu_stats.csv",
 				stacked_filename = selected_dataset,
-				stacked_attributes = ["Semester","Stud_uni","Stud_fh","Stud_ph","Stud_vfh"],	//first: attribute for x-Axis, the following attributes: attribute for y-Axis (bars)
-				stacked_attributes_tooltip = [["Stud_uni","number of students at a university", ""], ["Stud_fh","number of students at a university of applied sciences", ""], ["Stud_ph","number of students at a university of education", ""], ["Stud_vfh","number of students at a university of administration", ""]],
+				stacked_attributes = ["Semester","Uni","FH","PH","VFH"],	//first: attribute for x-Axis, the following attributes: attribute for y-Axis (bars)
+				stacked_attributes_tooltip = [["Uni","number of students at a university", ""], ["FH","number of students at a university of applied sciences", ""], ["PH","number of students at a university of education", ""], ["VFH","number of students at a university of administration", ""]],
 				stacked_range = ["#006d2c","#2ca25f", "#66c2a4", "#b2e2e2"]; //; //colors for bars
 				stacked_y_axis_annotation = "Number of students";
 		
@@ -178,12 +178,12 @@ function drawChoroplethMap(div,filenames,attributes_topojson,attribute_choroplet
 				var sortable_div = "#sortable_bar",
 				//sortable_filename = "data/single_states/bawu_stats.csv",
 				sortable_filename = selected_dataset,
-				sortable_attributes = ["Semester","Stud_total"],
+				sortable_attributes = ["Semester","Total"],
 				sortable_attributes_tooltip = ["total number of students", ""],
 				sortable_y_axis_annotation = "Number of students";
 		
 				//draw charts:
-				drawDashboard_modal("#dashboard", selected_dataset, ["Semester","Stud_uni","Stud_fh","Stud_ph","Stud_vfh"],["#006d2c","#2ca25f", "#66c2a4", "#b2e2e2"]);   
+				drawDashboard_modal("#dashboard", selected_dataset, ["Semester","Uni","FH","PH","VFH"],["#006d2c","#2ca25f", "#66c2a4", "#b2e2e2"]);   
 				drawGroupedVerticalBar(grouped_div,grouped_filename,grouped_attributes,grouped_attributes_tooltip,grouped_range,grouped_y_axis_annotation);
 				drawStackedVerticalBar(stacked_div,stacked_filename,stacked_attributes,stacked_attributes_tooltip,stacked_range,stacked_y_axis_annotation);
 				drawSortableBarChart(sortable_div,sortable_filename,sortable_attributes,sortable_attributes_tooltip,sortable_y_axis_annotation);
@@ -214,16 +214,16 @@ function drawChoroplethMap(div,filenames,attributes_topojson,attribute_choroplet
 
 		
 		//legend:                         
-		var legend = svg.selectAll('g.legendEntry')
+		/*var legend = svg.selectAll('g.legendEntry')
 			.data(color.range())
 			.enter()
 			.append('g').attr('class', 'legendEntry');
 
 		legend
 			.append('rect')
-			.attr("x", width - 150)
+			.attr("x", width - 75)					//south-east: 165
 			.attr("y", function(d, i) {
-				return (height - 350) + (i * 20);
+				return (height - 800) + (i * 20);	//south-east: 350
 			})
 			//.attr("y", height - 500)
 			.attr("width", 10)
@@ -234,17 +234,29 @@ function drawChoroplethMap(div,filenames,attributes_topojson,attribute_choroplet
 
 		legend
 			.append('text')
-			.attr("x", width - 130) //leave space of about 5 pixel after the rectangles
+			.attr("x", width - 60) //leave space of about 5 pixel after the rectangles, south-east: 150
 			.attr("y", function(d, i) {
-				return (height - 350) + (i * 20);
+				return (height - 800) + (i * 20);	//south-east: 350
 			})
 			.attr("dy", "0.8em") //place text one line "below" the x,y point
 			.text(function(d,i) {
 				var extent = color.invertExtent(d);
 				//extent will be a two-element array, format it however you want:
 				var format = d3.format("0.2f");
-				return format(+extent[0]) + " - " + format(+extent[1]);
-			});
+				console.log(i);
+				console.log(d);
+				console.log(extent[0]);
+				if (i == 0) {
+					return "0 - <= " + format(+extent[1]);
+				}
+				else if (i == domain.length) {
+					return "> " + format(+extent[0]);
+				}
+				else {
+					return format(+extent[0]) + " - <= " + format(+extent[1]);
+				}
+				
+			});*/
 	
 	});	
 	

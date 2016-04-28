@@ -1,4 +1,4 @@
-Semester,Bundesland,Hochschulen,Total,Uni,PH,FH,VFH,Stud_per_hs
+Semester,Bundesland,Hochschulen,Stud_total,Stud_uni,Stud_ph,Stud_fh,Stud_vfh,Stud_per_hs
 WS2014/15,Thueringen,11,50915,34733,800,15008,374,4629
 WS2013/14,Thueringen,11,52001,35774,792,15075,360,4727
 WS2012/13,Thueringen,13,53234,36386,828,15624,396,4095

@@ -1,4 +1,4 @@
-Semester,Bundesland,Hochschulen,Total,Uni,PH,FH,VFH,Stud_per_hs
+Semester,Bundesland,Hochschulen,Stud_total,Stud_uni,Stud_ph,Stud_fh,Stud_vfh,Stud_per_hs
 WS2014/15,Brandenburg,12,49642,36371,0,12305,966,4137
 WS2013/14,Brandenburg,12,50334,36256,579,12552,947,4195
 WS2012/13,Brandenburg,13,51857,34603,566,15840,848,3989

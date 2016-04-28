@@ -1,4 +1,4 @@
-Semester,Bundesland,Hochschulen,Total,Uni,PH,FH,VFH,Stud_per_hs
+Semester,Bundesland,Hochschulen,Stud_total,Stud_uni,Stud_ph,Stud_fh,Stud_vfh,Stud_per_hs
 WS2014/15,Hamburg,20,97208,54179,2116,40237,676,4860
 WS2013/14,Hamburg,19,94655,53383,2142,38475,655,4982
 WS2012/13,Hamburg,20,91546,52860,2136,35898,652,4577

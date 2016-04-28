@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Choropleth Map</title>
+<title>Germany's Higher Education</title>
 <link rel="stylesheet" 
           href="css/style_charts.css" 
           type="text/css">
@@ -19,18 +19,12 @@
   margin-left: 75px;
 }
 
-#diagram {
-  margin-top: 10px;
-  display: inline-block;
-
+#header {
+	margin-top: 5px;	
 }
 
 #symbols {
 	margin-top: 800px;	
-}
-
-#bottom {
-	margin-top: 475px;
 }
 
 #dashboard_bottom {
@@ -45,6 +39,36 @@
 #symbols {
 	margin-left: -275px;
 	margin-top: -950px;	
+}
+
+#grafik1 {
+	margin-left: 500px;
+	margin-top: -400px;	
+}
+
+#legend {
+	margin-top: 575px;
+	margin-left: 780px;
+}
+
+#diagram {
+  margin-top: 10px;
+  display: inline-block;
+
+}
+
+#bottom {
+	margin-top: 150px;
+}
+
+#grafik2 {
+	margin-left: 20px;
+	margin-top: -650px;
+}
+
+#source {
+	margin-left: 1px;
+	margin-top: 650px;
 }
 </style>
 <!-- jQuery -->
@@ -79,10 +103,14 @@
 		<div id="diagram"></div>
 	</div>
 	<div id="symbols"><img src="images/cap-and-symbols_freigestellt.png" border="0" width="500" /></div>
+	<div id="grafik1"><img src="images/Grafik1_Test_2.png" border="0" width="500" /></div>
+	<div id="legend"><img src="images/legende_small.png" border="0"	/></div>
 	<div id="bottom">
 		<div id='dashboard_bottom'></div>
 		<div id="student"><img src="images/Student_freigestellt.png" border="0" width="180" /></div>
+		<div id="grafik2"><img src="images/Grafik2_Test_2.png" border="0" width="500" /></div>
 	</div>
+	<div id="source"><img src="images/Source_2.png" border="0" width="1000" /></div>
 	<!--<div id="tooltip"></div>-->
 	
 	<!-- Modal -->
@@ -152,7 +180,7 @@
         script.src = "GeoViz_local/js/stacked_vertical_bar.js";
         document.body.appendChild(script);*/
 		drawChoroplethMap(div,filenames,attributes_topojson,attribute_choropleth,attributes_tooltip,domain,range);
-		drawDashboard("#dashboard_bottom", "data/db_germany_education_data.csv", ["Bundesland","Stud_uni","Stud_fh","Stud_ph","Stud_vfh"],["#006d2c","#2ca25f", "#66c2a4", "#b2e2e2"]);//["#98abc5","#6b486b", "#ff8c00", "#fa4226"]
+		drawDashboard("#dashboard_bottom", "data/db_germany_education_data.csv", ["Bundesland","Uni","PH","FH","VFH"],["#006d2c","#2ca25f", "#66c2a4", "#b2e2e2"]);//["#98abc5","#6b486b", "#ff8c00", "#fa4226"], ["Bundesland","Stud_uni","Stud_fh","Stud_ph","Stud_vfh"]
       }
 
       if (window.addEventListener) {
