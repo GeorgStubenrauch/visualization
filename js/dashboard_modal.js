@@ -212,11 +212,11 @@ function drawDashboard_modal(in_div, in_filename, in_attributes, in_colors){
 			tr.append("td").text(function(d){ return d.type;});
 
 			// create the third column for each segment:
-			tr.append("td").attr("class",'legendFreq')
+			tr.append("td").attr("class",'legendFreq_mw')
 				.text(function(d){ return d3.format(",")(d.values_y);});
 
 			// create the fourth column for each segment:
-			tr.append("td").attr("class",'legendPerc')
+			tr.append("td").attr("class",'legendPerc_mw')
 				.text(function(d){ return getLegend(d,lD);});
 
 			// Utility function to be used to update the legend:
